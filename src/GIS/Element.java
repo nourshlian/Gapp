@@ -8,7 +8,7 @@ import Coords.coords_converter;
 public class Element implements GIS_element{
 	private String  lat, lon, alt, signal, time, type, mac, ssid, freq;
 	private int channel ;
-	private Point3D pp;
+//	private Point3D pp;
 
 	public Element() {
 	}
@@ -82,7 +82,7 @@ public class Element implements GIS_element{
 //		double lat = Double.parseDouble(this.lat);
 //		double lon = Double.parseDouble(this.lon);
 //		double alt = Double.parseDouble(this.alt);
-	pp=p.add( pp, vec);
+//	pp=p.add( pp, vec);
 		//		lat += vec.x();
 		//		lon += vec.y();
 		//		alt += vec.z();
