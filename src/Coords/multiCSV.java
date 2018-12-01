@@ -15,14 +15,16 @@ import GIS.GIS_project;
 import GIS.Layer;
 import GIS.Project;
 import de.micromata.opengis.kml.v_2_2_0.Document;
+import de.micromata.opengis.kml.v_2_2_0.Icon;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
+import de.micromata.opengis.kml.v_2_2_0.Style;
 import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
 
 public class multiCSV {
 	static List<String> filenames = new ArrayList<String>();
 	static Element ele;
 	static GIS_layer lay =new Layer();
-	static GIS_project pro = null ;
+	static GIS_project pro = new Project() ;
 	public static void main(String[] args) {
 		String filepath = "C:\\Users\\nour\\Desktop\\my_kml";
 		listFilesForFolder(new File(filepath));
@@ -59,17 +61,27 @@ public class multiCSV {
 		}
 	}
 
-	public static void makeKML(ArrayList<GIS_layer> toDisplay,String path) {
+	public static void makeKML(ArrayList<GIS_layer> play,String path) {
 		final Kml kml = new Kml();
+		Iterator<GIS_layer> it = play.iterator();
 		Document doc = kml.createAndSetDocument();
+		Icon icon = new Icon()
+			    .withHref("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
+		Style style = doc.createAndAddStyle();
+		style.withId("style_" + "red") // set the stylename to use this style from the placemark
+		    .createAndSetIconStyle().withScale(1.0).withIcon(icon); // set size and icon
+		style.createAndSetLabelStyle().withColor("ff43b3ff").withScale(0.5); // set color and size of the continent name
+		
 		String time;
-		for (int i = 0; i < toDisplay.size(); i++) {
-			for (int j = 0; j < toDisplay.get(i).size(); j++) {
-				Element w = (Element) (((GIS_layer) toDisplay.get(i)));
+		while(it.hasNext()) {
+			Layer toDisplay = (Layer) it.next();
+			for (int j = 0; j < toDisplay.size(); j++) {
+				Element w = (Element) toDisplay.get(j);
 				time = convertTimeFormat(w.getTime());
 				TimeStamp ts = new TimeStamp();
 				ts.setWhen(time);
 				doc.createAndAddPlacemark().withName(w.getSsid()).withOpen(Boolean.TRUE).withTimePrimitive(ts)
+				.withStyleUrl("#style_" + "red")
 				.withDescription("mac: " + w.getMac() + "<br/> freq: " + w.getFreq() + "<br/> signal: " + w.getSignal() + "<br/> Date: " + w.getTime())
 				.createAndSetPoint().addToCoordinates(Double.parseDouble(w.getLon()),
 						Double.parseDouble(w.getLat()), Double.parseDouble(w.getAlt()));
