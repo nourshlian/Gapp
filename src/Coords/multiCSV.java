@@ -33,7 +33,7 @@ public class multiCSV {
 			read_csv((String)it.next() , filepath);
 		}
 		//System.out.println(filenames.toString());
-		makeKML((ArrayList<GIS_layer>) pro, "C:\\Users\\nour\\Desktop\\my_kml\\multikml.kml");
+		makeKML((ArrayList<GIS_layer>) pro, "C:\\Users\\nour\\Desktop\\my_kml\\multi kml.kml");
 	}
 	public static void read_csv(String filename , String filepath) {
 		try {
@@ -65,23 +65,34 @@ public class multiCSV {
 		final Kml kml = new Kml();
 		Iterator<GIS_layer> it = play.iterator();
 		Document doc = kml.createAndSetDocument();
-		Icon icon = new Icon()
+		Icon red = new Icon()
 			    .withHref("http://maps.google.com/mapfiles/ms/icons/red-dot.png");
-		Style style = doc.createAndAddStyle();
-		style.withId("style_" + "red") // set the stylename to use this style from the placemark
-		    .createAndSetIconStyle().withScale(1.0).withIcon(icon); // set size and icon
-		style.createAndSetLabelStyle().withColor("ff43b3ff").withScale(0.5); // set color and size of the continent name
+		Style redstyle = doc.createAndAddStyle();
+		redstyle.withId("style_" + "red") // set the stylename to use this style from the placemark
+		    .createAndSetIconStyle().withScale(1.0).withIcon(red); // set size and icon
+		redstyle.createAndSetLabelStyle().withColor("ff43b3ff").withScale(0.5); // set color and size of the continent name
+		Icon green = new Icon()
+			    .withHref("http://maps.google.com/mapfiles/kml/paddle/grn-blank.png");
+		Style greenstyle = doc.createAndAddStyle();
+		greenstyle.withId("style_" + "green") // set the stylename to use this style from the placemark
+		    .createAndSetIconStyle().withScale(1.0).withIcon(green); // set size and icon
+		greenstyle.createAndSetLabelStyle().withColor("37FF33").withScale(0.5); // set color and size of the continent name
 		
 		String time;
+		String icon = null;
+		String[] color = {"green" , "red"};
+		int i = 0;
 		while(it.hasNext()) {
+			icon = color[++i % 2];
 			Layer toDisplay = (Layer) it.next();
 			for (int j = 0; j < toDisplay.size(); j++) {
 				Element w = (Element) toDisplay.get(j);
 				time = convertTimeFormat(w.getTime());
 				TimeStamp ts = new TimeStamp();
+				System.out.println(icon);
 				ts.setWhen(time);
 				doc.createAndAddPlacemark().withName(w.getSsid()).withOpen(Boolean.TRUE).withTimePrimitive(ts)
-				.withStyleUrl("#style_" + "red")
+				.withStyleUrl("#style_" + icon) 
 				.withDescription("mac: " + w.getMac() + "<br/> freq: " + w.getFreq() + "<br/> signal: " + w.getSignal() + "<br/> Date: " + w.getTime())
 				.createAndSetPoint().addToCoordinates(Double.parseDouble(w.getLon()),
 						Double.parseDouble(w.getLat()), Double.parseDouble(w.getAlt()));
