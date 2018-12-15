@@ -23,7 +23,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import Geom.GeomElement;
 import Geom.Geom_element;
 import Geom.Point3D;
 
@@ -34,10 +33,7 @@ public class MyFrame extends JFrame implements MouseListener
 	private ArrayList<Geom_element> fruits = new ArrayList<>();
 	private ArrayList<Geom_element> pac = new ArrayList<>(); 
 	private Point3D point;
-	private String TL =" 32° 6'20.88\"N , 35°12'8.36\"E"; 
-	private String DL =" 32° 6'6.41\"N , 35°12'8.35\"E";
-	private String TR =" 32° 6'20.75\"N , 35°12'44.85\"E";
-	private String DR =" 32° 6'6.46\"N , 35°12'44.90\"E";
+
 	
 	public MyFrame() 
 	{
@@ -93,10 +89,10 @@ public class MyFrame extends JFrame implements MouseListener
 		Iterator<Geom_element> fit = fruits.iterator();
 
 		while(fit.hasNext()) {
-			GeomElement fruit = (GeomElement) fit.next();
+			Point3D fruit = (Point3D) fit.next();
 			int r = 20;
-			int x = (int) (fruit.point.x() * getWidth());
-			int y = (int) (fruit.point.y() * getHeight());
+			int x = (int) (fruit.x() * getWidth());
+			int y = (int) (fruit.y() * getHeight());
 			g.setColor(Color.yellow);
 			g.fillOval(x-10 , y-8 , r, r);
 		}
@@ -106,7 +102,7 @@ public class MyFrame extends JFrame implements MouseListener
 	public void mouseClicked(MouseEvent arg) {
 		
 		System.out.println("("+ arg.getX() + "," + arg.getY() +")");
-		fruits.add(new GeomElement(new Point3D((double) arg.getX() / getWidth(),(double) arg.getY() / getHeight())));
+		fruits.add(new Point3D((double) arg.getX() / getWidth(),(double) arg.getY() / getHeight()));
 
 		repaint();
 

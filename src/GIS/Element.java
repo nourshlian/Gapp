@@ -1,10 +1,8 @@
 package GIS;
 
-import Geom.GeomElement;
 import Geom.Geom_element;
 import Geom.Point3D;
-import Coords.MyCoords;
-import Coords.coords_converter;
+
 public class Element implements GIS_element{
 	private String  lat, lon, alt, signal, time, type, mac, ssid, freq;
 	private int channel ;
@@ -62,11 +60,12 @@ public class Element implements GIS_element{
 
 	@Override
 	public Geom_element getGeom() {
-		double lat = Double.parseDouble(this.lat);
-		double lon = Double.parseDouble(this.lon);
-		double alt = Double.parseDouble(this.alt);
-		GeomElement GE = new GeomElement(new Point3D(lat,lon,alt));
-		return GE;
+		return null;
+//		double lat = Double.parseDouble(this.lat);
+//		double lon = Double.parseDouble(this.lon);
+//		double alt = Double.parseDouble(this.alt);
+//		GeomElement GE = new GeomElement(new Point3D(lat,lon,alt));
+//		return GE;
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class Element implements GIS_element{
 
 	@Override
 	public void translate(Point3D vec) {/////////////////////////////////////////////////////////
-		MyCoords p = new MyCoords();
+	//	MyCoords p = new MyCoords();
 
 //		double lat = Double.parseDouble(this.lat);
 //		double lon = Double.parseDouble(this.lon);
