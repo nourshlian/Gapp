@@ -2,14 +2,16 @@ package Geom;
 
 public class GeomElement implements Geom_element{
 
-	private Point3D point;
+	public Point3D point;
 	
 	public GeomElement(Point3D p){
 		
 		this.point = p;
 		
 	}
-
+	public double getX() {
+		return this.point.x();
+	}
 	
 	@Override
 	public double distance3D(Point3D p) {

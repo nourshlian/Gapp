@@ -89,7 +89,6 @@ public class multiCSV {
 				Element w = (Element) toDisplay.get(j);
 				time = convertTimeFormat(w.getTime());
 				TimeStamp ts = new TimeStamp();
-				System.out.println(icon);
 				ts.setWhen(time);
 				doc.createAndAddPlacemark().withName(w.getSsid()).withOpen(Boolean.TRUE).withTimePrimitive(ts)
 				.withStyleUrl("#style_" + icon) 

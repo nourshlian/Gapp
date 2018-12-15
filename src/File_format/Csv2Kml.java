@@ -23,7 +23,7 @@ import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
 public class Csv2Kml {
 	public static void main(String [] args) {
 		
-			read_and_store_csv("C:\\Users\\nour\\Desktop\\my_kml\\WigleWifi_20171203085618.csv","C:\\Users\\nour\\Desktop\\my_kml\\jjs.kml");
+			read_and_store_csv("C:\\Users\\nour\\Desktop\\my_kml\\test.csv","C:\\Users\\nour\\Desktop\\my_kml\\tesaaaaaaaat.kml");
 
 
 	}
